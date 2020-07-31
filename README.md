@@ -4,6 +4,11 @@ The 3 Zone - 5 Channel Bus Sensor Hub is a design recycled from an unimplmented 
 
 ## GPIO Layout
 
+- "I" Only - Input Only
+- "O" Only - Output Only 
+- "IO"     - Can be used as both an Input or Output 
+- "X"      - Special functions
+
 ###### ESP8266 Port Layout
 - D0 - IO - IR via R3 resistor
 - D1 - X  - SCL        - MCP23017, CHAIN-1, CHAIN-2 and LCD Header
@@ -60,11 +65,11 @@ The 3 Zone - 5 Channel Bus Sensor Hub is a design recycled from an unimplmented 
 - STOP    - I  - Global Stop Input to MCP pin 15
 
 ###### FUNCTION Header
-IR+          - NA - IR via R3 resistor
-START BUTTON - IO - D7
+- IR+          - NA - IR via R3 resistor
+- START BUTTON - IO - D7
 
 ###### CHAIN(1/2) Header (Ordered Label down)
-GND - X - Common Power Ground
-3v3 - X - Common Power 3v from NodeMCU
-SCL - X - I2C Bus Clock
-SDA - X - I2C Bus Data
+- GND - X - Common Power Ground
+- 3v3 - X - Common Power 3v from NodeMCU
+- SCL - X - I2C Bus Clock
+- SDA - X - I2C Bus Data
