@@ -2,6 +2,8 @@
 
 The 3 Zone - 5 Channel Bus Sensor Hub is a design recycled from an unimplmented project called Just Another Dust Collector Controller (https://github.com/jchambers2012/JADCC).  This project is currently being used to monitor sensors around my house as part of my home automation.  The PCB desing allows for 5 inputs and gobal input and outout over a single CAT5/6 cable.
 
+HUB PCB v1.0.1: https://easyeda.com/jchambers2012/blower-sensing-controller_copy
+
 ## GPIO Layout
 
 - "I" Only - Input Only
@@ -51,7 +53,6 @@ The 3 Zone - 5 Channel Bus Sensor Hub is a design recycled from an unimplmented 
 - Pin 7 - Gobal "STOP" Input
 - Pin 8 - Gobal 12v power rail
 
-
 ###### TO RELAY Header
 - GND        - X - Common Power Ground
 - Function B - IO - D3
@@ -73,3 +74,8 @@ The 3 Zone - 5 Channel Bus Sensor Hub is a design recycled from an unimplmented 
 - 3v3 - X - Common Power 3v from NodeMCU
 - SCL - X - I2C Bus Clock
 - SDA - X - I2C Bus Data
+
+###### FROM POWER SUPPLY Header
+- 12v - X - 12v from power supply used for sensors.  Can be briged to 5v if long distance is not required
+- 5v  - X - 5v from power supply used for NodeMCU and (optional) LCD display
+- GND - X - Common ground
