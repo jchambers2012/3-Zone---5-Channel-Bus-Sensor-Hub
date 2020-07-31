@@ -1,0 +1,355 @@
+# "I" Only - Input Only
+# "O" Only - Output Only 
+# "IO"     - Can be used as both an Input or Output 
+# "X"      - Special functions
+
+# Please note in PCB boards 1.0.0 and 1.0.1 the header P5 pin "IR/D7" is incorrletly labled. IR/D7 goes to D0/R3 and D7 goes to relay header
+
+#R1 and R2 is an optional I2C resistor connected to 3v3
+
+#R3 is used to connect D0 to/from IR+ on FUNCTION HEADER.  It can be briged if an LED resistor is not needed
+
+#PCB Warning:
+#This device should not be used as a life safety system.
+#This device does not contain any Emergency Control or Fail-Safe Functions. 
+#Make sure to isolate any motors before servicing device
+
+#ESPHome Warning:
+#These are software interlocks. As such, a software bug (which can always happen) 
+#can still activate both switches at the same time. Similarly, at reset time 
+#(before any of ESPHome’s code runs) the relay GPIO pins may have pull-ups active, 
+#so the relay may be active before ESPHome can manually deactivate them.
+#So it is highly recommended to use hardware interlocks (like SPDT-type relays) 
+#that ensure that two GPIOs are never active at the same time.
+
+
+# ESP8266 Port Layout
+# D0 - IO - IR via R3 resistor
+# D1 - X  - SCL        - MCP23017, CHAIN-1, CHAIN-2 and LCD Header
+# D2 - X  - SDA        - MCP23017, CHAIN-1, CHAIN-2 and LCD Header
+# D3 - IO - Function B - Relay Header
+# D4 - IO - Start      - Relay Header
+# D5 - IO - Function A - Relay Header
+# D6 - IO - Red LED    - Realy Header
+# D7 - IO - Start LED  - Relay Header
+# D8 - IO - Unused     - P5 Header
+# A0 - IO - Unused     - P5 Header
+
+# mcp23017 Port Layout (numbering is in ESPHome)
+# PGA 0-7:
+#  0 - I  - Zone 1 - Sensor 1
+#  1 - I  - Zone 1 - Sensor 2
+#  2 - I  - Zone 1 - Sensor 3
+#  3 - I  - Zone 1 - Sensor 4
+#  4 - I  - Zone 1 - Sensor 5 
+#  5 - I  - Zone 2 - Sensor 1
+#  6 - I  - Zone 2 - Sensor 2
+#  7 - I  - Zone 2 - Sensor 3
+# PGB 0-7:
+#  8 - I  - Zone 2 - Sensor 4
+#  9 - I  - Zone 2 - Sensor 5
+# 10 - I  - Zone 3 - Sensor 1
+# 11 - I  - Zone 3 - Sensor 2
+# 12 - I  - Zone 3 - Sensor 3
+# 13 - I  - Zone 3 - Sensor 4
+# 14 - I  - Zone 3 - Sensor 5
+# 15 - I  - Gloabl Stop
+
+# RELAY INTERCONNECT Header
+# RED LED - NA - Common return/send to all zoned for "LED" header
+# STOP    - I  - Global Stop Input to MCP pin 15
+
+# FUNCTION Header
+# IR+          - NA - IR via R3 resistor
+# START BUTTON - IO - D7
+
+# CHAIN(1/2) Header (Ordered Label down)
+# GND - X - Common Power Ground
+# 3v3 - X - Common Power 3v from NodeMCU
+# SCL - X - I2C Bus Clock
+# SDA - X - I2C Bus Data
+
+# TO RELAY Header
+# GND        - X - Common Power Ground
+# Function B - IO - D3
+# Function A - IO - D5
+# Start LED  - IO - D7
+# RED LED    - IO - D6
+# 3v3        - x  - Common 3v from NodeMCU
+
+esphome:
+  name: z_test_dust
+  platform: ESP8266
+  board: nodemcuv2
+wifi:
+  networks:
+  - ssid: !secret wifi_ssid
+    password: !secret wifi_password
+#  manual_ip:
+    # Set this to the IP of the ESP
+#    static_ip: 192.168.1.83
+    # Set this to the IP address of the router. Often ends with .1
+#    gateway: 192.168.1.1
+    # The subnet of the network. 255.255.255.0 works for most home networks.
+#    subnet: 255.255.255.0
+
+#mqtt:
+#  broker: !secret MQTT_broker
+#  username: !secret MQTT_username
+#  password: !secret MQTT_password
+#  discovery: True
+#  reboot_timeout: 1h
+## mqtt --OR-- api
+api:
+  password: !secret API_password
+  reboot_timeout: 1h
+  
+# Enable logging
+logger:
+  level: DEBUG
+
+ota:
+
+web_server:
+   port: 80
+
+mcp23017:
+  - id: 'mcp23017_hub'
+    address: 0x20
+i2c:
+  sda: D2
+  scl: D1
+  scan: True
+  id: bus_a
+  
+#mcp23017_hub A0-4 = Zone 1 1,2,3,4,5
+#mcp23017_hub A5-7 = Zone 2 1,2,3
+#mcp23017_hub B0-1 = Zone 2       4,5
+#mcp23017_hub B2-6 = Zone 3 1,2,3,4,5
+#mcp23017_hub B7 = STOP
+binary_sensor:
+
+  - platform: gpio
+    name: "FUNBA"
+    id: test_dust_D5
+    filters:
+      - delayed_on_off: 300ms
+    pin: D5
+  - platform: gpio
+    name: "FUN B"
+    id: test_dust_D3
+    filters:
+      - delayed_on_off: 300ms
+    pin: D3
+
+  - platform: gpio
+    name: "START"
+    id: test_dust_D4
+    filters:
+      - delayed_on_off: 300ms
+    pin: D4
+
+  - platform: gpio
+    name: "RED LED"
+    id: test_dust_D6
+    filters:
+      - delayed_on_off: 300ms
+    pin: D6
+
+  - platform: gpio
+    name: "START LED"
+    id: test_dust_D7
+    filters:
+      - delayed_on_off: 300ms
+    pin: D7
+
+  - platform: gpio
+    name: "GPIO D8"
+    id: test_dust_D8
+    filters:
+      - delayed_on_off: 300ms
+    pin: D8
+
+  - platform: gpio
+    name: "GPIO A0"
+    id: test_dust_A0
+    filters:
+      - delayed_on_off: 300ms
+    pin: A0
+
+  - platform: gpio
+    name: "Zone 1 - Sensor 1"
+    id: test_dust_mcp_0
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 0
+      mode: INPUT
+      inverted: False 
+
+  - platform: gpio
+    name: "Zone 1 - Sensor 2"
+    id: test_dust_mcp_1
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 1
+      mode: INPUT
+      inverted: False 
+
+  - platform: gpio
+    name: "Zone 1 - Sensor 3"
+    id: test_dust_mcp_2
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 2
+      mode: INPUT
+      inverted: False 
+
+  - platform: gpio
+    name: "Zone 1 - Sensor 4"
+    id: test_dust_mcp_3
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 3
+      mode: INPUT
+      inverted: False 
+
+  - platform: gpio
+    name: "Zone 1 - Sensor 5"
+    id: test_dust_mcp_4
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 4
+      mode: INPUT
+      inverted: False 
+  - platform: gpio
+    name: "Zone 2 - Sensor 1"
+    id: test_dust_mcp_5
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 5
+      mode: INPUT
+      inverted: False 
+
+
+  - platform: gpio
+    name: "Zone 2 - Sensor 2"
+    id: test_dust_mcp_6
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 6
+      mode: INPUT
+      inverted: False 
+
+  - platform: gpio
+    name: "Zone 2 - Sensor 3"
+    id: test_dust_mcp_7
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 7
+      mode: INPUT
+      inverted: False 
+
+  - platform: gpio
+    name: "Zone 2 - Sensor 4"
+    id: test_dust_mcp_8
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 8
+      mode: INPUT
+      inverted: False 
+
+  - platform: gpio
+    name: "Zone 2 - Sensor 5"
+    id: test_dust_mcp_9
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 9
+      mode: INPUT
+      inverted: False 
+  - platform: gpio
+    name: "Zone 3 - Sensor 1"
+    id: test_dust_mcp_10
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 10
+      mode: INPUT
+      inverted: False 
+
+  - platform: gpio
+    name: "Zone 3 - Sensor 2"
+    id: test_dust_mcp_11
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 11
+      mode: INPUT
+      inverted: False 
+
+  - platform: gpio
+    name: "Zone 3 - Sensor 3"
+    id: test_dust_mcp_12
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 12
+      mode: INPUT
+      inverted: False 
+
+  - platform: gpio
+    name: "Zone 3 - Sensor 4"
+    id: test_dust_mcp_13
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 13
+      mode: INPUT
+      inverted: False 
+
+  - platform: gpio
+    name: "Zone 3 - Sensor 5"
+    id: test_dust_mcp_14
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 14
+      mode: INPUT
+      inverted: False 
+
+  - platform: gpio
+    name: "Global Stop"
+    id: test_dust_mcp_15
+    filters:
+      - delayed_on_off: 300ms
+    pin:
+      mcp23017: mcp23017_hub
+      number: 15
+      mode: INPUT
+      inverted: False 
+      
+
