@@ -5,7 +5,7 @@ The 3 Zone - 5 Channel Bus Sensor Hub is a design recycled from an unimplmented 
 ###### HUB PCB v1.0.1: https://easyeda.com/jchambers2012/blower-sensing-controller_copy
 ![HUB PCB v1.0.1](https://github.com/jchambers2012/3-Zone-5-Channel-Bus-Sensor-Hub/blob/master/Images/PCB_HUB.jpg)
 
-###### RJ45 PCB Layout:
+###### RJ45 PCB Layout (Backside/Bottom):
 ![RJ45 PCB LAYOUT](https://github.com/jchambers2012/3-Zone-5-Channel-Bus-Sensor-Hub/blob/master/Images/RJ45_PINOUT.jpg)
 
  ###### Breakout Sensor Board One Global "Stop" and One Sensor (user selectable):
