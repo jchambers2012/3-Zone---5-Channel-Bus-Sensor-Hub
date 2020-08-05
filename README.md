@@ -11,7 +11,8 @@ The 3 Zone - 5 Channel Bus Sensor Hub is a design recycled from an unimplmented 
  ###### Breakout Sensor Board One Global "Stop" and One Sensor (user selectable):
  - The "DOOR" IO is connected to 5 DIP switch.  Turning any of the switches to the ON/UP direction will connect one (or more) IO lines to the sensor(s) bus on the CAT5 bus.
  - The "STOP" IO is a global input that can be used for any function
- - The "LED" IO is a global return line that can optional be connected to a relay to allow for a global signal.  By default it is not connected to anything on the hub but is exposed on the RELAY INTERCONNECT header.
+ - The "LED" IO is a global return line that can optional be connected to a relay to allow for a global signal.  The LED is connected to the bus via the R2 resistor.  Can be briged with a jummper wire if a LED resistor is not needed.  By default this bus line is not connected to anything on the hub but is exposed on the RELAY INTERCONNECT header and can be routed to a standalone optical optical coupler, to a relay or to be pulled low and use the 12v as a power bus.
+ - The "12v" is directly connected to the 12v input from the power supply.  This could also be 5v by bridging/wiring 5v to both inputs.  The replacable optical coupler has a built-in current limiting resistor so the bus can be directly shorted out to a IO line. 
  
 ![REMOTE ONE SENSOR PCB](https://github.com/jchambers2012/3-Zone-5-Channel-Bus-Sensor-Hub/blob/master/Images/REMOTE_1Z_1S.jpg)
 
@@ -19,6 +20,7 @@ The 3 Zone - 5 Channel Bus Sensor Hub is a design recycled from an unimplmented 
  - The "S1" to "S5" IO is connected directly to the sensor bus on the CAT5 bus.
  - The "STOP" IO is a global input that can be used for any function
  - The "LED" IO is a global return line that can optional be connected to a relay to allow for a global signal.  The LED is connected to the bus via the R2 resistor.  Can be briged with a jummper wire if a LED resistor is not needed.  By default this bus line is not connected to anything on the hub but is exposed on the RELAY INTERCONNECT header and can be routed to a standalone optical optical coupler, to a relay or to be pulled low and use the 12v as a power bus.
+ - The "12v" is directly connected to the 12v input from the power supply.  This could also be 5v by bridging/wiring 5v to both inputs.  The replacable optical coupler has a built-in current limiting resistor and can be so the bus can be directly shorted out to a IO line. 
  
 ![REMOTE FIVE SENSOR PCB](https://github.com/jchambers2012/3-Zone-5-Channel-Bus-Sensor-Hub/blob/master/Images/REMOTE_1Z_5S.jpg)
 
