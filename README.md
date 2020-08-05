@@ -3,6 +3,13 @@
 The 3 Zone - 5 Channel Bus Sensor Hub is a design recycled from an unimplmented project called Just Another Dust Collector Controller (https://github.com/jchambers2012/JADCC).  This project is currently being used to monitor sensors around my house as part of my home automation.  The PCB desing allows for 5 inputs and gobal input and outout over a single CAT5/6 cable.
 
 HUB PCB v1.0.1: https://easyeda.com/jchambers2012/blower-sensing-controller_copy
+![HUB PCB v1.0.1](https://github.com/jchambers2012/3-Zone-5-Channel-Bus-Sensor-Hub/blob/master/Images/PCB_HUB.jpg)
+
+Breakout Sensor Board One Global "Stop" and One Sensor (user selectable):
+![REMOTE ONE SENSOR PCB](https://github.com/jchambers2012/3-Zone-5-Channel-Bus-Sensor-Hub/blob/master/Images/REMOTE_1Z_1S.jpg)
+
+Breakout Sensor Board One Global "Stop" and Five Sensor:
+![REMOTE FIVE SENSOR PCB](https://github.com/jchambers2012/3-Zone-5-Channel-Bus-Sensor-Hub/blob/master/Images/REMOTE_1Z_5S.jpg)
 
 ## GPIO Layout
 
@@ -44,14 +51,14 @@ HUB PCB v1.0.1: https://easyeda.com/jchambers2012/blower-sensing-controller_copy
 - 15 - I  - Gloabl Stop
 
 ###### Zone (1-3) RJ45
-- Pin 1 - Zone X Sensor 5
-- Pin 2 - Zone X Sensor 4
-- Pin 3 - Zone X Sensor 3
-- Pin 4 - Zone X Sensor 2
-- Pin 5 - Zone X Sensor 1
-- Pin 6 - Gobal "LED" to/from RELAY INTERCONNECT
-- Pin 7 - Gobal "STOP" Input
-- Pin 8 - Gobal 12v power rail
+- Pin 1 - Zone X Sensor 5 (T568B Brown White)
+- Pin 2 - Zone X Sensor 4 (T568B Brown)
+- Pin 3 - Zone X Sensor 3 (T568B Blue White)
+- Pin 4 - Zone X Sensor 2 (T568B Green)
+- Pin 5 - Zone X Sensor 1 (T568B Green White)
+- Pin 6 - Gobal "LED" to/from RELAY INTERCONNECT (T568B Blue)
+- Pin 7 - Gobal "STOP" Input (T568B Orange White)
+- Pin 8 - Gobal 12v power rail (T568B Orange)
 
 ###### TO RELAY Header
 - GND        - X - Common Power Ground
