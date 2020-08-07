@@ -103,6 +103,6 @@ The 3 Zone - 5 Channel Bus Sensor Hub is a design recycled from an unimplmented 
 - SDA - X - I2C Bus Data
 
 ###### FROM POWER SUPPLY Header
-- 12v - X - 12v from power supply used for sensors.  Can be briged to 5v if long distance is not required.  There is no circuitry that steps down the 12 volts of the 5 volts power rails. A separate 5 volt power supply is needed.
+- 12v - X - 12v from power supply used for sensors.  Can be briged to 5v if long distance is not required.  There is no circuitry that steps down the 12 volts to the 5 volts power rails. A separate 5 volt power supply is needed.
 - 5v  - X - 5v from power supply used for NodeMCU and (optional) LCD display
 - GND - X - Common ground
