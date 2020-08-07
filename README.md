@@ -115,7 +115,7 @@ The 3 Zone - 5 Channel Bus Sensor Hub is a design recycled from an unimplmented 
 
 **All work produced by developers is provided “AS IS”. Developers make no warranties, expressed or implied, and hereby disclaims all implied warranties, including any warranty of merchantability and warranty of fitness for a particular purpose.  Developers are working as hobbyists.  It should never be assumed that they are trained or knowledgeable to give safety, electrical, or any other advice.**
 
-Make sure you understand the risk of connecting a control system that can remotely control your blower system or other motors.  This system does not contain any hardware interlocks or watchdog system.  Make sure to contact an electrician when working with high voltage.  
+Make sure you understand the risk of connecting a control system that can remotely control your blower system or other motors.  This system does not contain any hardware interlocks or watchdog system.  Make sure to contact an electrician when working with high or low voltage.  
 
 **YOU ARE RESPONSIBLE** for your own safety and the proper operation of **YOUR** SYSTEM.  **YOU** are responsible to make sure the system is set up and meets any and all safety standards, electrical code and any and all codes of your local jurisdiction.
 
