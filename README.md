@@ -106,3 +106,18 @@ The 3 Zone - 5 Channel Bus Sensor Hub is a design recycled from an unimplmented 
 - 12v - X - 12v from power supply used for sensors.  Can be briged to 5v if long distance is not required.  There is no circuitry that steps down the 12 volts to the 5 volts power rails. A separate 5 volt power supply is needed.
 - 5v  - X - 5v from power supply used for NodeMCU and (optional) LCD display
 - GND - X - Common ground
+
+
+### :warning: WARNING BEFORE PROCEEDING :warning: 
+**YOU CAN BE ELECTROCUTED OR CAUSE BODILY HARM TO YOURSELF OR SOMEONE ELSE IF YOU DON'T KNOW WHAT YOU ARE DOING!**
+
+**This project and I, the developer(s), do not take any responsibility for and we are not liable for any damage caused through use this system, be it indirect, special, incidental or consequential damages (including but not limited to damages for loss of business/home, loss of profits, interruption or the like, and/or loss of life).**
+
+**All work produced by developers is provided “AS IS”. Developers make no warranties, expressed or implied, and hereby disclaims all implied warranties, including any warranty of merchantability and warranty of fitness for a particular purpose.  Developers are working as hobbyists.  It should never be assumed that they are trained or knowledgeable to give safety, electrical, or any other advice.**
+
+Make sure you understand the risk of connecting a control system that can remotely control your blower system or other motors.  This system does not contain any hardware interlocks or watchdog system.  Make sure to contact an electrician when working with high voltage.  
+
+**YOU ARE RESPONSIBLE** for your own safety and the proper operation of **YOUR** SYSTEM.  **YOU** are responsible to make sure the system is set up and meets any and all safety standards, electrical code and any and all codes of your local jurisdiction.
+
+## Lack of Interlocking and Fail-Safe Operations
+**The firmware and hardware does not contain any fail-safe systems or interlocks.**  It should never be used as part of a life safety system or control system where human lives depend on its safe or continual operation.  This control board should not be used as or in an emergency stop system.  Your dust collection system motor must contain its own emergency stop and isolation system to both safely power it off and perform maintenance.
